@@ -11,6 +11,12 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use('/', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+});
+
 app.post('/',async (req,res)=>{
     const model = await tf.loadLayersModel("https://riskfactormodel.s3.amazonaws.com/model.json")
     console.log(model.summary());
